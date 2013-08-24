@@ -35,7 +35,7 @@ module.exports = class DecryptionCipher
     verificationDigest = data.substring 0, 20
     data = data.substring 20
 
-    hash = crypto.createHash 'sha1'
+    hash = @_crypto.createHash 'sha1'
     hash.update data, 'binary'
     digest = hash.digest 'binary'
 

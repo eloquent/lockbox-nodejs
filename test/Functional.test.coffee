@@ -74,3 +74,8 @@ suite 'FunctionalTest', =>
         actual = actual.substring 342
 
         assert.strictEqual actual, expected
+
+      test '- ' + name + ' decryption', =>
+        actual = @decryptionCipher.decrypt @key, parameters.ciphertext
+
+        assert.strictEqual actual, parameters.data
