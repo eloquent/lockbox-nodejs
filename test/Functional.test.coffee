@@ -66,8 +66,8 @@ suite 'FunctionalTest', =>
 
     for name, parameters of @specVectorData
       test '- ' + name + ' encryption', =>
-        (sinon.stub @encryptionCipher, '_generateKey').returns parameters.key
-        (sinon.stub @encryptionCipher, '_generateIv').returns parameters.iv
+        (sinon.stub @encryptionCipher, '_generateKey').returns new Buffer parameters.key, 'binary'
+        (sinon.stub @encryptionCipher, '_generateIv').returns new Buffer parameters.iv, 'binary'
         expected = parameters.ciphertext.substring 342
         actual = @encryptionCipher.encrypt @key, parameters.data
         actual = actual.toString 'binary'

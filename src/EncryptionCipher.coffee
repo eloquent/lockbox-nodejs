@@ -13,31 +13,30 @@ module.exports = class EncryptionCipher
     @_crypto = crypto
 
   encrypt: (key, data) ->
+    data = new Buffer data, 'binary' if not Buffer.isBuffer data
     generatedKey = @_generateKey()
     iv = @_generateIv()
 
-    encryptedKeyAndIv = key.encrypt generatedKey + iv, 'binary', 'binary'
+    encryptedKeyAndIv = key.encrypt Buffer.concat [generatedKey, iv]
 
     hash = @_crypto.createHash 'sha1'
-    hash.update data, 'binary'
-    digest = hash.digest 'binary'
+    hash.update data
+    digest = hash.digest()
 
-    encryptedData = @_encryptAes generatedKey, iv, digest + data
-    encrypted = @_base64UriEncode encryptedKeyAndIv + encryptedData
-    new Buffer encrypted, 'binary'
+    encryptedData = @_encryptAes generatedKey, iv, Buffer.concat [digest, data]
+    @_base64UriEncode Buffer.concat [encryptedKeyAndIv, encryptedData]
 
   _generateKey: ->
-    @_crypto.randomBytes 32
+    new Buffer @_crypto.randomBytes(32), 'binary'
 
   _generateIv: ->
-    @_crypto.randomBytes 16
+    new Buffer @_crypto.randomBytes(16), 'binary'
 
   _encryptAes: (key, iv, data) ->
     cipher = @_crypto.createCipheriv 'aes-256-cbc', key, iv
-    encrypted = cipher.update data, 'binary', 'binary'
-    encrypted + cipher.final 'binary'
+    Buffer.concat [cipher.update(data), cipher.final()]
 
   _base64UriEncode: (data) ->
-    data = new Buffer data, 'binary'
     data = data.toString 'base64'
-    data.replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '')
+    data = data.replace(/\+/g, '-').replace(/\//g, '_').replace(/\=+$/, '')
+    new Buffer data, 'binary'
