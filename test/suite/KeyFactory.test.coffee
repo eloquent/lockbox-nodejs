@@ -11,14 +11,14 @@ file that was distributed with this source code.
 fs = require 'fs'
 path = require 'path'
 ursa = require 'ursa'
-KeyFactory = require '../' + process.env.TEST_ROOT + '/KeyFactory'
+KeyFactory = require '../../' + process.env.TEST_ROOT + '/KeyFactory'
 
 suite 'KeyFactory', =>
 
   setup =>
     @factory = new KeyFactory ursa, fs
 
-    @fixturePath = path.resolve __dirname, 'fixture/pem'
+    @fixturePath = path.resolve __dirname, '../fixture/pem'
     @privateKeyString =           """
                                   -----BEGIN RSA PRIVATE KEY-----
                                   Proc-Type: 4,ENCRYPTED

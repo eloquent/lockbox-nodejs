@@ -10,9 +10,9 @@ file that was distributed with this source code.
 {assert} = require 'chai'
 path = require 'path'
 sinon = require 'sinon'
-DecryptionCipher = require '../' + process.env.TEST_ROOT + '/DecryptionCipher'
-EncryptionCipher = require '../' + process.env.TEST_ROOT + '/EncryptionCipher'
-KeyFactory = require '../' + process.env.TEST_ROOT + '/KeyFactory'
+DecryptionCipher = require '../../' + process.env.TEST_ROOT + '/DecryptionCipher'
+EncryptionCipher = require '../../' + process.env.TEST_ROOT + '/EncryptionCipher'
+KeyFactory = require '../../' + process.env.TEST_ROOT + '/KeyFactory'
 
 suite 'FunctionalTest', =>
 
@@ -20,7 +20,7 @@ suite 'FunctionalTest', =>
     @encryptionCipher = new EncryptionCipher
     @decryptionCipher = new DecryptionCipher
 
-    @fixturePath = path.resolve __dirname, 'fixture/pem'
+    @fixturePath = path.resolve __dirname, '../fixture/pem'
     @keyFactory = new KeyFactory
     @key = @keyFactory.createPrivateKeyFromFileSync path.resolve @fixturePath, 'rsa-2048-nopass.private.pem'
 
