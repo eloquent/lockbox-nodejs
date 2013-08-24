@@ -11,9 +11,5 @@ Exception = require './Exception'
 
 module.exports = class InvalidPrivateKeyException extends Exception
 
-  constructor: (key, cause) ->
-    @_key = key
+  constructor: (@key, cause) ->
     super 'The supplied key is not a valid PEM formatted private key.', cause
-
-  key: ->
-    @_key

@@ -12,10 +12,6 @@ Exception = require './Exception'
 
 module.exports = class ReadException extends Exception
 
-  constructor: (path, cause) ->
-    @_path = path
-    message = util.format "Unable to read from '%s'.", path
+  constructor: (@path, cause) ->
+    message = util.format "Unable to read from '%s'.", @path
     super message, cause
-
-  path: ->
-    @_path

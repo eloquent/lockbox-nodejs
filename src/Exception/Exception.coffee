@@ -9,16 +9,8 @@ file that was distributed with this source code.
 
 module.exports = class Exception
 
-  constructor: (message, cause) ->
-    cause = null if cause is undefined
-    @_message = message
-    @_cause = cause
-
-  message: ->
-    @_message
-
-  cause: ->
-    @_cause
+  constructor: (@message, @cause) ->
+    @cause = null if @cause is undefined
 
   toString: ->
-    @message()
+    @message

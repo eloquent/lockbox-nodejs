@@ -15,12 +15,12 @@ suite 'InvalidPrivateKeyException', =>
   test 'With cause', =>
     exception = new InvalidPrivateKeyException 'key', 'foo'
 
-    assert.strictEqual exception.key(), 'key'
-    assert.strictEqual exception.message(), 'The supplied key is not a valid PEM formatted private key.'
+    assert.strictEqual exception.key, 'key'
+    assert.strictEqual exception.message, 'The supplied key is not a valid PEM formatted private key.'
     assert.strictEqual exception.toString(), 'The supplied key is not a valid PEM formatted private key.'
-    assert.strictEqual exception.cause(), 'foo'
+    assert.strictEqual exception.cause, 'foo'
 
   test 'Without cause', =>
     exception = new InvalidPrivateKeyException 'key'
 
-    assert.isNull exception.cause()
+    assert.isNull exception.cause

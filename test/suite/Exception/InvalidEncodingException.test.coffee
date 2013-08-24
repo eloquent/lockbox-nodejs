@@ -15,11 +15,11 @@ suite 'InvalidEncodingException', =>
   test 'With cause', =>
     exception = new InvalidEncodingException 'foo'
 
-    assert.strictEqual exception.message(), 'Invalid encoding.'
+    assert.strictEqual exception.message, 'Invalid encoding.'
     assert.strictEqual exception.toString(), 'Invalid encoding.'
-    assert.strictEqual exception.cause(), 'foo'
+    assert.strictEqual exception.cause, 'foo'
 
   test 'Without cause', =>
     exception = new InvalidEncodingException
 
-    assert.isNull exception.cause()
+    assert.isNull exception.cause

@@ -15,12 +15,12 @@ suite 'ReadException', =>
   test 'With cause', =>
     exception = new ReadException '/path/to/file', 'foo'
 
-    assert.strictEqual exception.path(), '/path/to/file'
-    assert.strictEqual exception.message(), "Unable to read from '/path/to/file'."
+    assert.strictEqual exception.path, '/path/to/file'
+    assert.strictEqual exception.message, "Unable to read from '/path/to/file'."
     assert.strictEqual exception.toString(), "Unable to read from '/path/to/file'."
-    assert.strictEqual exception.cause(), 'foo'
+    assert.strictEqual exception.cause, 'foo'
 
   test 'Without cause', =>
     exception = new ReadException '/path/to/file'
 
-    assert.isNull exception.cause()
+    assert.isNull exception.cause

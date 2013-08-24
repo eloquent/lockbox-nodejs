@@ -15,11 +15,11 @@ suite 'DecryptionFailedException', =>
   test 'With cause', =>
     exception = new DecryptionFailedException 'foo'
 
-    assert.strictEqual exception.message(), 'Decryption failed.'
+    assert.strictEqual exception.message, 'Decryption failed.'
     assert.strictEqual exception.toString(), 'Decryption failed.'
-    assert.strictEqual exception.cause(), 'foo'
+    assert.strictEqual exception.cause, 'foo'
 
   test 'Without cause', =>
     exception = new DecryptionFailedException
 
-    assert.isNull exception.cause()
+    assert.isNull exception.cause
