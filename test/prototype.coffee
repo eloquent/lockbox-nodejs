@@ -73,4 +73,4 @@ hash = crypto.createHash 'sha1'
 hash.update decrypted, 'binary'
 digest = hash.digest 'binary'
 
-console.log decrypted, digest is verificationDigest
+# console.log decrypted, digest is verificationDigest
