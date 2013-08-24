@@ -14,7 +14,7 @@ DecryptionCipher = require '../../' + process.env.TEST_ROOT + '/DecryptionCipher
 EncryptionCipher = require '../../' + process.env.TEST_ROOT + '/EncryptionCipher'
 KeyFactory = require '../../' + process.env.TEST_ROOT + '/KeyFactory'
 
-suite 'FunctionalTest', =>
+suite 'Functional tests', =>
 
   setup =>
     @encryptionCipher = new EncryptionCipher

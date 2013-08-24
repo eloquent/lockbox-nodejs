@@ -7,16 +7,15 @@ For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code.
 ###
 
+DecryptionFailedException = require './Exception/DecryptionFailedException'
+
 module.exports = class DecryptionCipher
 
   constructor: (crypto = (require 'crypto')) ->
     @_crypto = crypto
 
   decrypt: (key, data) ->
-    try
-      data = @_base64UriDecode data
-    catch error
-      throw new DecryptionFailedException error
+    data = @_base64UriDecode data
 
     keyAndIv = data.slice 0, key.getModulus().length
     try
@@ -25,10 +24,10 @@ module.exports = class DecryptionCipher
       throw new DecryptionFailedException error
 
     generatedKey = keyAndIv.slice 0, 32
-    throw new DecryptionFailedException if generatedKey.length is not 32
+    throw new DecryptionFailedException if generatedKey.length isnt 32
 
     iv = keyAndIv.slice 32
-    throw new DecryptionFailedException if iv.length is not 16
+    throw new DecryptionFailedException if iv.length isnt 16
 
     data = data.slice key.getModulus().length
     data = @_decryptAes generatedKey, iv, data
@@ -40,7 +39,7 @@ module.exports = class DecryptionCipher
     hash.update data
     digest = hash.digest().toString 'binary'
 
-    throw new DecryptionFailedException if digest is not verificationDigest
+    throw new DecryptionFailedException if digest isnt verificationDigest
 
     return data
 
@@ -51,8 +50,4 @@ module.exports = class DecryptionCipher
   _base64UriDecode: (data) ->
     data = data.toString 'binary' if Buffer.isBuffer data
     data = data.replace(/-/g, '+').replace(/_/g, '/')
-    try
-      data = new Buffer data, 'base64'
-    catch error
-      throw new InvalidEncodingException error
-    return data
+    new Buffer data, 'base64'

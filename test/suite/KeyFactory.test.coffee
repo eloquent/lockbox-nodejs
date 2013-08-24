@@ -7,11 +7,13 @@ For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code.
 ###
 
-{assert} = require 'chai'
+{assert, expect} = require 'chai'
 fs = require 'fs'
 path = require 'path'
 ursa = require 'ursa'
 KeyFactory = require '../../' + process.env.TEST_ROOT + '/KeyFactory'
+InvalidPrivateKeyException = require '../../' + process.env.TEST_ROOT + '/Exception/InvalidPrivateKeyException'
+InvalidPublicKeyException = require '../../' + process.env.TEST_ROOT + '/Exception/InvalidPublicKeyException'
 
 suite 'KeyFactory', =>
 
@@ -131,12 +133,24 @@ suite 'KeyFactory', =>
 
       assert.strictEqual key.toPublicPem().toString(), @publicKeyStringNoPassword
 
+    test 'handles invalid keys', =>
+      callback = =>
+        @factory.createPrivateKey ''
+
+      expect(callback).to.throw new InvalidPrivateKeyException
+
   suite '#createPublicKey()', =>
 
     test 'handles public keys', =>
       key = @factory.createPublicKey @publicKeyString
 
       assert.strictEqual key.toPublicPem().toString(), @publicKeyString
+
+    test 'handles invalid keys', =>
+      callback = =>
+        @factory.createPublicKey ''
+
+      expect(callback).to.throw new InvalidPublicKeyException
 
   suite '#createPrivateKeyFromFile()', =>
 
@@ -150,13 +164,22 @@ suite 'KeyFactory', =>
         assert.strictEqual key.toPublicPem().toString(), @publicKeyStringNoPassword
         done()
 
-    test 'handles errors', (done) =>
+    test 'handles read errors', (done) =>
       _fs =
         readFile: (path, options, callback) =>
           callback 'foo'
       @factory = new KeyFactory ursa, _fs
       @factory.createPrivateKeyFromFile '/path/to/key', null, (error, key) =>
         assert.strictEqual error, 'foo'
+        done()
+
+    test 'handles invalid keys', (done) =>
+      _fs =
+        readFile: (path, options, callback) =>
+          callback null, ''
+      @factory = new KeyFactory ursa, _fs
+      @factory.createPrivateKeyFromFile '/path/to/key', null, (error, key) =>
+        assert.instanceOf error, InvalidPrivateKeyException
         done()
 
   suite '#createPrivateKeyFromFileSync()', =>
@@ -178,13 +201,22 @@ suite 'KeyFactory', =>
         assert.strictEqual key.toPublicPem().toString(), @publicKeyString
         done()
 
-    test 'handles errors', (done) =>
+    test 'handles read errors', (done) =>
       _fs =
         readFile: (path, options, callback) =>
           callback 'foo'
       @factory = new KeyFactory ursa, _fs
       @factory.createPublicKeyFromFile '/path/to/key', (error, key) =>
         assert.strictEqual error, 'foo'
+        done()
+
+    test 'handles invalid keys', (done) =>
+      _fs =
+        readFile: (path, options, callback) =>
+          callback null, ''
+      @factory = new KeyFactory ursa, _fs
+      @factory.createPublicKeyFromFile '/path/to/key', (error, key) =>
+        assert.instanceOf error, InvalidPublicKeyException
         done()
 
   suite '#createPublicKeyFromFileSync()', =>
