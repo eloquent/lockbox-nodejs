@@ -77,5 +77,6 @@ suite 'FunctionalTest', =>
 
       test '- ' + name + ' decryption', =>
         actual = @decryptionCipher.decrypt @key, parameters.ciphertext
+        actual = actual.toString 'binary'
 
         assert.strictEqual actual, parameters.data

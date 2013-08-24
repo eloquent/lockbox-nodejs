@@ -14,6 +14,7 @@ module.exports = class EncryptionCipher
 
   encrypt: (key, data) ->
     data = new Buffer data, 'binary' if not Buffer.isBuffer data
+
     generatedKey = @_generateKey()
     iv = @_generateIv()
 

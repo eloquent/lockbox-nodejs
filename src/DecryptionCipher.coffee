@@ -18,26 +18,27 @@ module.exports = class DecryptionCipher
     catch error
       throw new DecryptionFailedException error
 
-    keyAndIv = data.substring 0, key.getModulus().length
+    keyAndIv = data.slice 0, key.getModulus().length
     try
-      keyAndIv = key.decrypt keyAndIv, 'binary', 'binary'
+      keyAndIv = key.decrypt keyAndIv
     catch error
       throw new DecryptionFailedException error
 
-    generatedKey = keyAndIv.substring 0, 32
+    generatedKey = keyAndIv.slice 0, 32
     throw new DecryptionFailedException if generatedKey.length is not 32
-    iv = keyAndIv.substring 32
+
+    iv = keyAndIv.slice 32
     throw new DecryptionFailedException if iv.length is not 16
 
-    data = data.substring key.getModulus().length
+    data = data.slice key.getModulus().length
     data = @_decryptAes generatedKey, iv, data
 
-    verificationDigest = data.substring 0, 20
-    data = data.substring 20
+    verificationDigest = data.slice(0, 20).toString 'binary'
+    data = data.slice 20
 
     hash = @_crypto.createHash 'sha1'
-    hash.update data, 'binary'
-    digest = hash.digest 'binary'
+    hash.update data
+    digest = hash.digest().toString 'binary'
 
     throw new DecryptionFailedException if digest is not verificationDigest
 
@@ -45,13 +46,13 @@ module.exports = class DecryptionCipher
 
   _decryptAes: (key, iv, data) ->
     cipher = @_crypto.createDecipheriv 'aes-256-cbc', key, iv
-    decrypted = cipher.update data, 'binary', 'binary'
-    decrypted += cipher.final 'binary'
+    Buffer.concat [cipher.update(data), cipher.final()]
 
   _base64UriDecode: (data) ->
+    data = data.toString 'binary' if Buffer.isBuffer data
     data = data.replace(/-/g, '+').replace(/_/g, '/')
     try
       data = new Buffer data, 'base64'
     catch error
       throw new InvalidEncodingException error
-    data.toString 'binary'
+    return data
