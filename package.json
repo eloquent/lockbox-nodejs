@@ -18,10 +18,6 @@
             "pattern": "//lockbox-nodejs\\/lib/"
         }
     },
-    "engines": {
-        "node": "~0.10",
-        "npm":  "~1.2"
-    },
     "dependencies": {
         "ursa": "~0.8"
     },
