@@ -28,6 +28,24 @@ suite 'Functional tests', =>
 
     @specVectorData =
       'Test vector 1':
+        data: ''
+        key:  '12345678901234567890123456789012'
+        iv:   '1234567890123456'
+        ciphertext:
+          'FzFcxXm57XqDzsZm4vVUaspsK1-Hcw7fN' +
+          'jAqadl-WhwR_Kfwv4gM7v7OnDGWfpDOTl' +
+          'I_nlQvvwP3TP98tOhyrsJkpDDMZ0WSQVP' +
+          'cl23xTk6xbLvwl2qRVdZa8isKCXXcuKt5' +
+          'XIv1Mexp2Dzyn8w8TNYOdK0EiNj1v2PUk' +
+          '7X2QUPvK0poT_3fUlN13aK28KBqg-CGw0' +
+          'xzsGSG4k7CN8FEfGqbSBfuNxumH0eJyzZ' +
+          '1s4cYbcn3OWdlQln7asp21WZHj7SEMWIf' +
+          'dsrtoWL85uEAnLxYG_CXD1nteVXffAwFv' +
+          'ByMT1UmNQ0AWjm8KJiH8hLXPr09rbo5Vz' +
+          's6c5lSrjMmM9itNTFRhW3KMfhqusPDqWJ' +
+          '7K37AvEHDaLULPKBNj24c'
+
+      'Test vector 2':
         data: '1234'
         key:  '12345678901234567890123456789012'
         iv:   '1234567890123456'
@@ -45,7 +63,7 @@ suite 'Functional tests', =>
           'uxDzjdrT4lbetTuESm-YHKtq9JEj6E2S' +
           'ER4TURlVKf14sPeDgRUo88-zvM7BWpMv'
 
-      'Test vector 2':
+      'Test vector 3':
         data: '1234567890123456'
         key:  '12345678901234567890123456789012'
         iv:   '1234567890123456'
