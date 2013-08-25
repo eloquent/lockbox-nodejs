@@ -8,13 +8,21 @@ file that was distributed with this source code.
 ###
 
 DecryptionFailedException = require './Exception/DecryptionFailedException'
+InvalidPrivateKeyException = require './Exception/InvalidPrivateKeyException'
 
 module.exports = class DecryptionCipher
 
-  constructor: (crypto = (require 'crypto')) ->
+  constructor: (crypto = (require 'crypto'), ursa = (require 'ursa')) ->
     @_crypto = crypto
+    @_ursa = ursa
 
   decrypt: (key, data) ->
+    try
+      @_ursa.assertPrivateKey key
+    catch error
+      error = new InvalidPrivateKeyException key, error
+      throw new DecryptionFailedException error
+
     data = @_base64UriDecode data
 
     keyAndIv = data.slice 0, key.getModulus().length
@@ -30,7 +38,10 @@ module.exports = class DecryptionCipher
     throw new DecryptionFailedException if iv.length isnt 16
 
     data = data.slice key.getModulus().length
-    data = @_decryptAes generatedKey, iv, data
+    try
+      data = @_decryptAes generatedKey, iv, data
+    catch error
+      throw new DecryptionFailedException error
 
     verificationDigest = data.slice(0, 20).toString 'binary'
     data = data.slice 20

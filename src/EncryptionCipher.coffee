@@ -7,12 +7,20 @@ For the full copyright and license information, please view the LICENSE
 file that was distributed with this source code.
 ###
 
+InvalidPublicKeyException = require './Exception/InvalidPublicKeyException'
+
 module.exports = class EncryptionCipher
 
-  constructor: (crypto = (require 'crypto')) ->
+  constructor: (crypto = (require 'crypto'), ursa = (require 'ursa')) ->
     @_crypto = crypto
+    @_ursa = ursa
 
   encrypt: (key, data) ->
+    try
+      @_ursa.assertKey key
+    catch error
+      throw new InvalidPublicKeyException key, error
+
     data = new Buffer data, 'binary' if not Buffer.isBuffer data
 
     generatedKey = @_generateKey()

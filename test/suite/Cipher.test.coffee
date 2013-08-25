@@ -16,6 +16,7 @@ EncryptionCipher = require '../../' + process.env.TEST_ROOT + '/EncryptionCipher
 DecryptionCipher = require '../../' + process.env.TEST_ROOT + '/DecryptionCipher'
 KeyFactory = require '../../' + process.env.TEST_ROOT + '/KeyFactory'
 DecryptionFailedException = require '../../' + process.env.TEST_ROOT + '/Exception/DecryptionFailedException'
+InvalidPublicKeyException = require '../../' + process.env.TEST_ROOT + '/Exception/InvalidPublicKeyException'
 
 suite 'Cipher', =>
 
@@ -61,19 +62,34 @@ suite 'Cipher', =>
 
         assert.strictEqual decrypted.toString('binary'), data
 
+  suite '- Encrypt failures', =>
+
+    test '- Not public key', =>
+      callback = =>
+        @cipher.encrypt 'foo', 'foobar'
+
+      expect(callback).to.throw InvalidPublicKeyException
+
   suite '- Decrypt failures', =>
+
+    test '- Not private key', =>
+      @key = @keyFactory.createPublicKeyFromFileSync path.resolve @fixturePath, 'rsa-2048-nopass.public.pem'
+      callback = =>
+        @cipher.decrypt @key, 'foobar'
+
+      expect(callback).to.throw DecryptionFailedException
 
     test '- Not Base64', =>
       callback = =>
         @cipher.decrypt @key, 'foo:bar'
 
-      expect(callback).to.throw new DecryptionFailedException
+      expect(callback).to.throw DecryptionFailedException
 
     test '- Bad data', =>
       callback = =>
         @cipher.decrypt @key, 'foobar'
 
-      expect(callback).to.throw new DecryptionFailedException
+      expect(callback).to.throw DecryptionFailedException
 
     test '- Empty key', =>
       data = new Buffer ' ', 'binary'
@@ -82,7 +98,7 @@ suite 'Cipher', =>
       callback = =>
         @cipher.decrypt @key, data
 
-      expect(callback).to.throw new DecryptionFailedException
+      expect(callback).to.throw DecryptionFailedException
 
     test '- Empty IV', =>
       data = new Buffer crypto.randomBytes(32), 'binary'
@@ -91,7 +107,7 @@ suite 'Cipher', =>
       callback = =>
         @cipher.decrypt @key, data
 
-      expect(callback).to.throw new DecryptionFailedException
+      expect(callback).to.throw DecryptionFailedException
 
     test '- Bad AES data', =>
       data = new Buffer crypto.randomBytes(48), 'binary'
@@ -100,7 +116,7 @@ suite 'Cipher', =>
       callback = =>
         @cipher.decrypt @key, data
 
-      expect(callback).to.throw new DecryptionFailedException
+      expect(callback).to.throw DecryptionFailedException
 
     test '- Bad padding', =>
       key = new Buffer crypto.randomBytes(32), 'binary'
@@ -120,7 +136,7 @@ suite 'Cipher', =>
       callback = =>
         @cipher.decrypt @key, data
 
-      expect(callback).to.throw new DecryptionFailedException
+      expect(callback).to.throw DecryptionFailedException
 
     test '- Bad hash', =>
       key = new Buffer crypto.randomBytes(32), 'binary'
@@ -137,4 +153,4 @@ suite 'Cipher', =>
       callback = =>
         @cipher.decrypt @key, data
 
-      expect(callback).to.throw new DecryptionFailedException
+      expect(callback).to.throw DecryptionFailedException

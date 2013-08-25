@@ -137,7 +137,7 @@ suite 'KeyFactory', =>
       callback = =>
         @factory.createPrivateKey ''
 
-      expect(callback).to.throw new InvalidPrivateKeyException
+      expect(callback).to.throw InvalidPrivateKeyException
 
   suite '#createPublicKey()', =>
 
@@ -150,7 +150,7 @@ suite 'KeyFactory', =>
       callback = =>
         @factory.createPublicKey ''
 
-      expect(callback).to.throw new InvalidPublicKeyException
+      expect(callback).to.throw InvalidPublicKeyException
 
   suite '#createPrivateKeyFromFile()', =>
 
