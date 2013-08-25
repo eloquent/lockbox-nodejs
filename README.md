@@ -147,6 +147,49 @@ for (var i = 0; i < encrypted.length; ++i) {
 }
 ```
 
+## Module exports
+
+### Instances
+
+- **lockbox.keyFactory** - An instance of [lockbox.KeyFactory]
+
+### Functions
+
+- **lockbox.encrypt(key, data)** - Encrypts data using a public key
+- **lockbox.decrypt(key, data)** - Decrypts data using a private key
+
+### Classes
+
+#### lockbox.KeyFactory
+
+##### lockbox.KeyFactory.createPrivateKey(key, [password])
+
+Creates a private key from a string.
+
+##### lockbox.KeyFactory.createPublicKey(key)
+
+Creates a public key from a string.
+
+##### lockbox.KeyFactory.createPrivateKeyFromFile(path, [password], callback)
+
+Creates a private key from a file asynchronously. Any errors will be returned as
+the first argument to the callback. Otherwise, the second argument to the
+callback will be the newly created key.
+
+##### lockbox.KeyFactory.createPrivateKeyFromFileSync(path, [password])
+
+Creates a private key from a file synchronously.
+
+##### lockbox.KeyFactory.createPublicKeyFromFile(path, callback)
+
+Creates a public key from a file asynchronously. Any errors will be returned as
+the first argument to the callback. Otherwise, the second argument to the
+callback will be the newly created key.
+
+##### lockbox.KeyFactory.createPublicKeyFromFileSync(path)
+
+Creates a public key from a file synchronously.
+
 ## How does *Lockbox* actually work?
 
 *Lockbox* uses [OpenSSL] with [PEM] formatted keys, and is similar in operation
@@ -290,6 +333,7 @@ the 342<sup>nd</sup> byte is guaranteed to be the same for all ciphertext.
 [Base64 with a URI and filename safe alphabet]: http://tools.ietf.org/html/rfc4648#section-5
 [cipher block chaining]: http://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher-block_chaining_.28CBC.29
 [initialization vector]: http://en.wikipedia.org/wiki/Initialization_vector
+[lockbox.KeyFactory]: #lockbox-keyfactory
 [OAEP padding]: http://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding
 [OpenSSL]: http://www.openssl.org/
 [openssl_open()]: http://php.net/openssl_open

@@ -40,7 +40,7 @@ module.exports = class KeyFactory
         return callback error
       callback null, keyObject
 
-  createPrivateKeyFromFileSync: (path, password, callback) ->
+  createPrivateKeyFromFileSync: (path, password) ->
     key = @_fs.readFileSync path
     @createPrivateKey key, password
 
@@ -53,5 +53,5 @@ module.exports = class KeyFactory
         return callback error
       callback null, keyObject
 
-  createPublicKeyFromFileSync: (path, callback) ->
+  createPublicKeyFromFileSync: (path) ->
     @createPublicKey @_fs.readFileSync path
