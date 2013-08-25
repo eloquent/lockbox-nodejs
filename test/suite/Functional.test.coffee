@@ -10,6 +10,7 @@ file that was distributed with this source code.
 {assert} = require 'chai'
 path = require 'path'
 sinon = require 'sinon'
+lockbox = require '../../' + process.env.TEST_ROOT + '/main'
 DecryptionCipher = require '../../' + process.env.TEST_ROOT + '/DecryptionCipher'
 EncryptionCipher = require '../../' + process.env.TEST_ROOT + '/EncryptionCipher'
 KeyFactory = require '../../' + process.env.TEST_ROOT + '/KeyFactory'
@@ -98,3 +99,44 @@ suite 'Functional tests', =>
         actual = actual.toString 'binary'
 
         assert.strictEqual actual, parameters.data
+
+  test '- Encrypting data', =>
+    keyPath = path.resolve @fixturePath, 'rsa-2048.private.pem'
+    data = "Super secret data."
+    key = lockbox.keyFactory.createPrivateKeyFromFileSync(keyPath, "password")
+    encrypted = lockbox.encrypt(key, data)
+
+  test '- Encrypting multiple data', =>
+    keyPath = path.resolve @fixturePath, 'rsa-2048.private.pem'
+    data = ["Super secret data.", "Extra secret data.", "Mega secret data."]
+    key = lockbox.keyFactory.createPrivateKeyFromFileSync(keyPath, "password")
+    cipher = new lockbox.BoundEncryptionCipher(key)
+    encrypted = []
+    i = 0
+    while i < data.length
+      encrypted.push cipher.encrypt(data[i])
+      ++i
+
+  test '- Decrypting data', =>
+    keyPath = path.resolve @fixturePath, 'rsa-2048.private.pem'
+    encrypted = "<some encrypted data>"
+    key = lockbox.keyFactory.createPrivateKeyFromFileSync(keyPath, "password")
+    data = undefined
+    try
+      data = lockbox.decrypt(key, encrypted)
+    catch error
+      # decryption failed
+
+  test '- Decrypting multiple data', =>
+    keyPath = path.resolve @fixturePath, 'rsa-2048.private.pem'
+    encrypted = ["<some encrypted data>", "<more encrypted data>", "<other encrypted data>"]
+    key = lockbox.keyFactory.createPrivateKeyFromFileSync(keyPath, "password")
+    cipher = new lockbox.BoundDecryptionCipher(key)
+    decrypted = []
+    i = 0
+    while i < encrypted.length
+      try
+        decrypted.push cipher.decrypt(encrypted[i])
+      catch error
+        # decryption failed
+      ++i
