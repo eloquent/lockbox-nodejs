@@ -64,7 +64,10 @@ var lockbox = require('lockbox');
 
 var data = 'Super secret data.';
 
-var key = lockbox.keyFactory.createPrivateKeyFromFileSync('/path/to/key.pem', 'password');
+var key = lockbox.keyFactory.createPrivateKeyFromFileSync(
+    '/path/to/key.pem',
+    'password'
+);
 var encrypted = lockbox.encrypt(key, data);
 ```
 
@@ -82,7 +85,10 @@ var data = [
     'Mega secret data.'
 ];
 
-var key = lockbox.keyFactory.createPrivateKeyFromFileSync('/path/to/key.pem', 'password');
+var key = lockbox.keyFactory.createPrivateKeyFromFileSync(
+    '/path/to/key.pem',
+    'password'
+);
 var cipher = new lockbox.BoundEncryptionCipher(key);
 
 var encrypted = [];
@@ -98,7 +104,10 @@ var lockbox = require('lockbox');
 
 var encrypted = '<some encrypted data>';
 
-var key = lockbox.keyFactory.createPrivateKeyFromFileSync('/path/to/key.pem', 'password');
+var key = lockbox.keyFactory.createPrivateKeyFromFileSync(
+    '/path/to/key.pem',
+    'password'
+);
 
 var data;
 try {
@@ -122,7 +131,10 @@ var encrypted = [
     '<other encrypted data>'
 ];
 
-var key = lockbox.keyFactory.createPrivateKeyFromFileSync('/path/to/key.pem', 'password');
+var key = lockbox.keyFactory.createPrivateKeyFromFileSync(
+    '/path/to/key.pem',
+    'password'
+);
 var cipher = new lockbox.BoundDecryptionCipher(key);
 
 var decrypted = [];
