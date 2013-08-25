@@ -333,7 +333,7 @@ the 342<sup>nd</sup> byte is guaranteed to be the same for all ciphertext.
 [Base64 with a URI and filename safe alphabet]: http://tools.ietf.org/html/rfc4648#section-5
 [cipher block chaining]: http://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher-block_chaining_.28CBC.29
 [initialization vector]: http://en.wikipedia.org/wiki/Initialization_vector
-[lockbox.KeyFactory]: #lockbox-keyfactory
+[lockbox.KeyFactory]: #lockboxkeyfactory
 [OAEP padding]: http://en.wikipedia.org/wiki/Optimal_asymmetric_encryption_padding
 [OpenSSL]: http://www.openssl.org/
 [openssl_open()]: http://php.net/openssl_open
