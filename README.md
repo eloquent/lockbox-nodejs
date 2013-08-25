@@ -151,33 +151,105 @@ for (var i = 0; i < encrypted.length; ++i) {
 
 ### Instances
 
-- **lockbox.keyFactory** - An instance of [lockbox.KeyFactory]
+- **lockbox.keyFactory** - An instance of [lockbox.KeyFactory].
 
 ### Functions
 
-- **lockbox.encrypt(key, data)** - Encrypts data using a public key
-- **lockbox.decrypt(key, data)** - Decrypts data using a private key
+- **lockbox.encrypt(key, data)** - Encrypts data using a public key. Throws
+  **lockbox.exception.InvalidPublicKeyException** if an invalid key is supplied.
+- **lockbox.decrypt(key, data)** - Decrypts data using a private key. Throws
+  **lockbox.exception.DecryptionFailedException** on error.
 
 ### Classes
 
 #### lockbox.KeyFactory
 
-- **lockbox.KeyFactory.createPrivateKey(key, [password])** - Creates a private
-  key from a string.
-- **lockbox.KeyFactory.createPublicKey(key)** - Creates a public key from a
-  string.
-- **lockbox.KeyFactory.createPrivateKeyFromFile(path, [password], callback)** -
-  Creates a private key from a file asynchronously. Any errors will be returned
-  as the first argument to the callback. Otherwise, the second argument to the
-  callback will be the newly created key.
-- **lockbox.KeyFactory.createPrivateKeyFromFileSync(path, [password])** -
-  Creates a private key from a file synchronously.
-- **lockbox.KeyFactory.createPublicKeyFromFile(path, callback)** - Creates a
-  public key from a file asynchronously. Any errors will be returned as the
-  first argument to the callback. Otherwise, the second argument to the callback
-  will be the newly created key.
-- **lockbox.KeyFactory.createPublicKeyFromFileSync(path)** - Creates a public
-  key from a file synchronously.
+A factory for creating private and public keys from various sources.
+
+- **createPrivateKey(key, [password])** - Creates a private key from a string.
+  Throws **lockbox.exception.InvalidPrivateKeyException** if an invalid key is
+  supplied.
+- **createPublicKey(key)** - Creates a public key from a string. Throws
+  **lockbox.exception.InvalidPublicKeyException** if an invalid key is supplied.
+- **createPrivateKeyFromFile(path, [password], callback)** - Creates a private
+  key from a file asynchronously. Any errors will be returned as the first
+  argument to the callback (see the synchronous version for possible errors).
+  Otherwise, the second argument to the callback will be the newly created key.
+- **createPrivateKeyFromFileSync(path, [password])** - Creates a private key
+  from a file synchronously. Throws **lockbox.exception.ReadException** if the
+  file cannot be read. Throws **lockbox.exception.InvalidPrivateKeyException**
+  if the file is an invalid key.
+- **createPublicKeyFromFile(path, callback)** - Creates a public key from a file
+  asynchronously. Any errors will be returned as the first argument to the
+  callback (see the synchronous version for possible errors). Otherwise, the
+  second argument to the callback will be the newly created key.
+- **createPublicKeyFromFileSync(path)** - Creates a public key from a file
+  synchronously. Throws **lockbox.exception.ReadException** if the file cannot
+  be read. Throws **lockbox.exception.InvalidPublicKeyException** if the file is
+  an invalid key.
+
+#### lockbox.EncryptionCipher
+
+A cipher for encrypting data.
+
+- **encrypt(key, data)** - Encrypts data using a public key. Throws
+  **lockbox.exception.InvalidPublicKeyException** if an invalid key is supplied.
+
+#### lockbox.DecryptionCipher
+
+A cipher for decrypting data.
+
+- **decrypt(key, data)** - Decrypts data using a private key. Throws
+  **lockbox.exception.DecryptionFailedException** on error.
+
+#### lockbox.Cipher
+
+A cipher for encrypting *and* decrypting data.
+
+- **encrypt(key, data)** - Encrypts data using a public key. Throws
+  **lockbox.exception.InvalidPublicKeyException** if an invalid key is supplied.
+- **decrypt(key, data)** - Decrypts data using a private key. Throws
+  **lockbox.exception.DecryptionFailedException** on error.
+
+#### lockbox.BoundEncryptionCipher
+
+A cipher for encrypting data, with a bound key.
+
+- **new lockbox.BoundEncryptionCipher(key)** - Constructs a new bound encryption
+  cipher. Throws **lockbox.exception.InvalidPublicKeyException** if an invalid
+  key is supplied.
+- **encrypt(data)** - Encrypts data using the bound public key.
+
+#### lockbox.BoundDecryptionCipher
+
+A cipher for decrypting data, with a bound key.
+
+- **new lockbox.BoundDecryptionCipher(key)** - Constructs a new bound decryption
+  cipher. Throws **lockbox.exception.InvalidPrivateKeyException** if an invalid
+  key is supplied.
+- **decrypt(data)** - Decrypts data using the bound private key. Throws
+  **lockbox.exception.DecryptionFailedException** on error.
+
+#### lockbox.BoundCipher
+
+A cipher for encrypting *and* decrypting data, with a bound key.
+
+- **new lockbox.BoundCipher(key)** - Constructs a new bound cipher. Throws
+  **lockbox.exception.InvalidPrivateKeyException** if an invalid key is
+  supplied.
+- **encrypt(data)** - Encrypts data using the public key derived from the bound
+  private key.
+- **decrypt(data)** - Decrypts data using the bound private key. Throws
+  **lockbox.exception.DecryptionFailedException** on error.
+
+### Exceptions
+
+- **lockbox.exception.DecryptionFailedException** - Decryption failed.
+- **lockbox.exception.InvalidPrivateKeyException** - The supplied key is not a
+  valid PEM formatted private key.
+- **lockbox.exception.InvalidPublicKeyException** - The supplied key is not a
+  valid PEM formatted public key.
+- **lockbox.exception.ReadException** - Unable to read from the specified path.
 
 ## How does *Lockbox* actually work?
 
