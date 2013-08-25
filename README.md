@@ -162,33 +162,22 @@ for (var i = 0; i < encrypted.length; ++i) {
 
 #### lockbox.KeyFactory
 
-##### lockbox.KeyFactory.createPrivateKey(key, [password])
-
-Creates a private key from a string.
-
-##### lockbox.KeyFactory.createPublicKey(key)
-
-Creates a public key from a string.
-
-##### lockbox.KeyFactory.createPrivateKeyFromFile(path, [password], callback)
-
-Creates a private key from a file asynchronously. Any errors will be returned as
-the first argument to the callback. Otherwise, the second argument to the
-callback will be the newly created key.
-
-##### lockbox.KeyFactory.createPrivateKeyFromFileSync(path, [password])
-
-Creates a private key from a file synchronously.
-
-##### lockbox.KeyFactory.createPublicKeyFromFile(path, callback)
-
-Creates a public key from a file asynchronously. Any errors will be returned as
-the first argument to the callback. Otherwise, the second argument to the
-callback will be the newly created key.
-
-##### lockbox.KeyFactory.createPublicKeyFromFileSync(path)
-
-Creates a public key from a file synchronously.
+- **lockbox.KeyFactory.createPrivateKey(key, [password])** - Creates a private
+  key from a string.
+- **lockbox.KeyFactory.createPublicKey(key)** - Creates a public key from a
+  string.
+- **lockbox.KeyFactory.createPrivateKeyFromFile(path, [password], callback)** -
+  Creates a private key from a file asynchronously. Any errors will be returned
+  as the first argument to the callback. Otherwise, the second argument to the
+  callback will be the newly created key.
+- **lockbox.KeyFactory.createPrivateKeyFromFileSync(path, [password])** -
+  Creates a private key from a file synchronously.
+- **lockbox.KeyFactory.createPublicKeyFromFile(path, callback)** - Creates a
+  public key from a file asynchronously. Any errors will be returned as the
+  first argument to the callback. Otherwise, the second argument to the callback
+  will be the newly created key.
+- **lockbox.KeyFactory.createPublicKeyFromFileSync(path)** - Creates a public
+  key from a file synchronously.
 
 ## How does *Lockbox* actually work?
 
