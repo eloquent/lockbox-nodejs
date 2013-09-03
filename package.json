@@ -1,7 +1,7 @@
 {
     "name": "lockbox",
     "description": "Simple, strong encryption.",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "homepage": "https://github.com/eloquent/lockbox-nodejs",
     "author": "Erin Millard",
     "keywords": ["encryption", "openssl", "aes", "two", "way", "security", "strong", "simple"],
