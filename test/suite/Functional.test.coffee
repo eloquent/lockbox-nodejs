@@ -10,6 +10,7 @@ file that was distributed with this source code.
 {assert} = require 'chai'
 path = require 'path'
 sinon = require 'sinon'
+util = require 'util'
 lockbox = require '../../' + process.env.TEST_ROOT + '/main'
 DecryptionCipher = require '../../' + process.env.TEST_ROOT + '/DecryptionCipher'
 EncryptionCipher = require '../../' + process.env.TEST_ROOT + '/EncryptionCipher'
@@ -29,6 +30,7 @@ suite 'Functional tests', =>
 
     @specVectorData =
       'Test vector 1':
+        bits: 2048
         data: ''
         key:  '12345678901234567890123456789012'
         iv:   '1234567890123456'
@@ -45,8 +47,10 @@ suite 'Functional tests', =>
           'ByMT1UmNQ0AWjm8KJiH8hLXPr09rbo5Vz' +
           's6c5lSrjMmM9itNTFRhW3KMfhqusPDqWJ' +
           '7K37AvEHDaLULPKBNj24c'
+        rsaLength: 342
 
       'Test vector 2':
+        bits: 2048
         data: '1234'
         key:  '12345678901234567890123456789012'
         iv:   '1234567890123456'
@@ -63,8 +67,10 @@ suite 'Functional tests', =>
           'm71f4TLMKHTz-CmYinvzj7G_pYmvtHeh' +
           'uxDzjdrT4lbetTuESm-YHKtq9JEj6E2S' +
           'ER4TURlVKf14sPeDgRUo88-zvM7BWpMv'
+        rsaLength: 342
 
       'Test vector 3':
+        bits: 2048
         data: '1234567890123456'
         key:  '12345678901234567890123456789012'
         iv:   '1234567890123456'
@@ -82,19 +88,56 @@ suite 'Functional tests', =>
           'SxIPU4O8vomXpUqWzneJ4CBlVmSYgUJa' +
           '4zsJUnll4lufFRTYTYjuCgQhunOAIVS2' +
           'DxuQH8bSZZrHKNIghc0D3Q'
+        rsaLength: 342
+
+      'Test vector 4':
+        bits: 4096
+        data: '1234567890123456'
+        key:  '12345678901234567890123456789012'
+        iv:   '1234567890123456'
+        ciphertext:
+          'XncYhc3C20kG5Zb8VPB0OGBik6N6a6JY' +
+          '333Hz6VN3lQ21xMoc16XW0873AzuyvDI' +
+          'YAjNzN0pAQo0CosedUptYLLwRtGrsfUr' +
+          'XIZxteHNZ7JiEXGZ8W_6bz9jlbnpfNdH' +
+          'GxaR-aePTZWSbyPyPdQysGJlqclXJb_K' +
+          'dKfqGHLYOf0LO93kvljQ4ccux18vm8PQ' +
+          'GIeAH-L5qMfzfOHzcCXbVU746pZf7mNR' +
+          'uIEgfp0AM-JEKItYTIZxr8kP7-WlVDf0' +
+          '7cjQkZuUEQ7d9FQLKOWviuQ-PQd2enwI' +
+          'MYo3btEiu2XHmUcZEcI2esz_vwBGxHNM' +
+          'HGrshgpuP_EvPPR_1EogS2EGHs0l_owU' +
+          'hHx4V8LvgMBnO3O2nO9p2WA7ZKH1zMZU' +
+          'gGaxMAlZrMweaGvEcke2nwnfLUBVytYd' +
+          'QNOBV7TmJ3XMXwgpavZ2eKvVXUpdKfcm' +
+          'fsGDxjkJRN8BqDTrSZZmSKZe9VZkGSNS' +
+          '99jF9BEa6dmy7RTLy3xSaWdPwbElX3pA' +
+          'pgQR5BKHz6DP5p86gaQITelAMMYaZQK3' +
+          'tNvW6ncRfJGlD3ax_TezCOtrEmlzVCRe' +
+          'OsbK51H_xfST_0PO-hXG35NIGC1vDV8r' +
+          'iDMr47HbRIFwm9NxT1VR0hDF0LbIIbkS' +
+          'YucMkD_Zv9JjoL4FX0rM0T0fvDJBeJXw' +
+          'Zt1ifDOvWxogZVZkmIFCWuM7CVJ5ZeJb' +
+          'nxUU2E2I7goEIbpzgCFUtg8bkB_G0mWa' +
+          'xyjSIIXNA90'
+        rsaLength: 684
 
     for name, parameters of @specVectorData
       test '- ' + name + ' encryption', =>
+        keyName = util.format 'rsa-%s-nopass.private.pem', parameters.bits
+        @key = @keyFactory.createPrivateKeyFromFileSync path.resolve @fixturePath, keyName
         (sinon.stub @encryptionCipher, '_generateKey').returns new Buffer parameters.key, 'binary'
         (sinon.stub @encryptionCipher, '_generateIv').returns new Buffer parameters.iv, 'binary'
-        expected = parameters.ciphertext.substring 342
+        expected = parameters.ciphertext.substring parameters.rsaLength
         actual = @encryptionCipher.encrypt @key, parameters.data
         actual = actual.toString 'binary'
-        actual = actual.substring 342
+        actual = actual.substring parameters.rsaLength
 
         assert.strictEqual actual, expected
 
       test '- ' + name + ' decryption', =>
+        keyName = util.format 'rsa-%s-nopass.private.pem', parameters.bits
+        @key = @keyFactory.createPrivateKeyFromFileSync path.resolve @fixturePath, keyName
         actual = @decryptionCipher.decrypt @key, parameters.ciphertext
         actual = actual.toString 'binary'
 
