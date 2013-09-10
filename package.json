@@ -14,21 +14,16 @@
         "lib": "./lib"
     },
     "main": "./lib/main",
-    "scripts": {
-        "blanket": {
-            "pattern": "//lockbox-nodejs\\/lib/"
-        }
-    },
     "dependencies": {
-        "ursa": "~0.8"
+        "ursa": "~0.8.0"
     },
     "devDependencies": {
-        "blanket": "~1.1",
         "chai": "~1.7",
         "coffee-script": "~1.6",
         "coveralls": "~2.0",
+        "istanbul": "~0.1.0",
         "mocha": "~1.12",
-        "mocha-lcov-reporter": "~0.0",
+        "mocha-lcov-reporter": "~0.0.0",
         "sinon": "~1.7"
     },
     "licenses": [

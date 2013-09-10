@@ -7,13 +7,14 @@ test-coverage:
 	$(MAKE) clean
 	$(MAKE) lib
 	mkdir -p ./artifacts/tests
-	TEST_ROOT="lib" ./node_modules/.bin/mocha --require blanket --reporter html-cov > ./artifacts/tests/coverage.html
+	TEST_ROOT="lib" ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha
 
 travis:
 	$(MAKE) clean
 	$(MAKE) lib
 	mkdir -p ./artifacts/tests
-	TEST_ROOT="lib" ./node_modules/.bin/mocha --require blanket --reporter mocha-lcov-reporter | ./node_modules/.bin/coveralls
+	TEST_ROOT="lib" ./node_modules/.bin/istanbul cover --report lcovonly ./node_modules/.bin/_mocha
+	./node_modules/.bin/coveralls < ./coverage/lcov.info
 
 lib: $(COFFEE_FILES)
 	./node_modules/.bin/coffee -co lib src
