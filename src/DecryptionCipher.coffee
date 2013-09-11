@@ -43,8 +43,8 @@ module.exports = class DecryptionCipher
     catch error
       throw new DecryptionFailedException error
 
-    verificationDigest = data.slice(0, 20).toString 'binary'
-    data = data.slice 20
+    verificationDigest = data.slice(-20).toString 'binary'
+    data = data.slice 0, -20
 
     hash = @_crypto.createHash 'sha1'
     hash.update data

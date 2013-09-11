@@ -32,7 +32,7 @@ module.exports = class EncryptionCipher
     hash.update data
     digest = hash.digest()
 
-    encryptedData = @_encryptAes generatedKey, iv, Buffer.concat [digest, data]
+    encryptedData = @_encryptAes generatedKey, iv, Buffer.concat [data, digest]
     @_base64UriEncode Buffer.concat [encryptedKeyAndIv, encryptedData]
 
   _generateKey: ->
