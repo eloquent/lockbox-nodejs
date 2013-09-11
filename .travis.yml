@@ -1,4 +1,8 @@
 language: node_js
 node_js:
     - '0.10'
+env:
+  global:
+    - LOCKBOX_PUBLISH_BRANCH=master
 script: make travis
+after_success: ./.travis.after-success

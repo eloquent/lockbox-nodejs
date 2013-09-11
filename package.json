@@ -24,7 +24,8 @@
         "istanbul": "~0.1.0",
         "mocha": "~1.12",
         "mocha-lcov-reporter": "~0.0.0",
-        "sinon": "~1.7"
+        "sinon": "~1.7",
+        "yuidocjs": "~0.3.0"
     },
     "licenses": [
         {

@@ -4,20 +4,21 @@ test:
 	TEST_ROOT="src" ./node_modules/.bin/mocha
 
 test-coverage:
-	$(MAKE) clean
+	rm -rf ./lib
 	$(MAKE) lib
 	mkdir -p ./artifacts/tests
-	TEST_ROOT="lib" ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha
+	TEST_ROOT="lib" ./node_modules/.bin/istanbul cover --root ./lib --dir ./artifacts/tests/coverage ./node_modules/.bin/_mocha
 
 travis:
-	$(MAKE) clean
-	$(MAKE) lib
-	mkdir -p ./artifacts/tests
-	TEST_ROOT="lib" ./node_modules/.bin/istanbul cover --report lcovonly ./node_modules/.bin/_mocha
-	./node_modules/.bin/coveralls < ./coverage/lcov.info
+	$(MAKE) test-coverage
+	./node_modules/.bin/coveralls < ./artifacts/tests/coverage/lcov.info
 
 lib: $(COFFEE_FILES)
 	./node_modules/.bin/coffee -co lib src
+
+api-documentation: $(COFFEE_FILES)
+	mkdir -p ./artifacts/documentation
+	./node_modules/.bin/yuidoc --syntaxtype coffee --extension .coffee --outdir ./artifacts/documentation/api --config ./yuidoc.json ./src
 
 clean:
 	rm -rf ./lib
