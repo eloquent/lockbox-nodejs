@@ -143,6 +143,16 @@ suite 'Functional tests', =>
 
         assert.strictEqual actual, parameters.data
 
+  test '- Encrypt/decrypt with generated key', =>
+    key = lockbox.keyFactory.generatePrivateKey()
+    encrypted = @encryptionCipher.encrypt key, 'foobar'
+    decrypted = @decryptionCipher.decrypt key, encrypted
+
+    assert.strictEqual 'foobar', decrypted.toString()
+
+  test '- Generating keys', =>
+    key = lockbox.keyFactory.generatePrivateKey()
+
   test '- Encrypting data', =>
     keyPath = path.resolve @fixturePath, 'rsa-2048.private.pem'
     data = "Super secret data."

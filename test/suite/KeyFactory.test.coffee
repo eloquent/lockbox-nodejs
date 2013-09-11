@@ -184,6 +184,20 @@ suite 'KeyFactory', =>
       assert.strictEqual @factory._ursa, ursa
       assert.strictEqual @factory._fs, fs
 
+  suite '#generatePrivateKey()', =>
+
+    test 'generates keys', =>
+      key = @factory.generatePrivateKey()
+
+      assert.strictEqual 2048, key.getModulus().length * 8
+      assert.strictEqual 'AQAB', new Buffer(key.getExponent()).toString 'base64'
+
+    test 'generates large keys', =>
+      key = @factory.generatePrivateKey 4096
+
+      assert.strictEqual 4096, key.getModulus().length * 8
+      assert.strictEqual 'AQAB', new Buffer(key.getExponent()).toString 'base64'
+
   suite '#createPrivateKey()', =>
 
     test 'handles private keys with passwords', =>

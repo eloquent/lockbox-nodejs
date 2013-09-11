@@ -16,6 +16,10 @@ module.exports = class KeyFactory
     @_ursa = ursa
     @_fs = fs
 
+  generatePrivateKey: (size) ->
+    size = 2048 if not size
+    @_ursa.generatePrivateKey size, 65537
+
   createPrivateKey: (key, password) ->
     password = undefined if not password
     try
