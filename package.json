@@ -4,7 +4,7 @@
     "version": "0.2.0",
     "homepage": "https://github.com/eloquent/lockbox-nodejs",
     "author": "Erin Millard",
-    "keywords": ["encryption", "openssl", "aes", "two", "way", "security", "strong", "simple"],
+    "keywords": ["encryption", "openssl", "rsa", "aes", "two", "way", "security", "strong", "simple", "asymmetric", "key"],
     "repository": {
         "type": "git",
         "url": "https://github.com/eloquent/lockbox-nodejs.git"
