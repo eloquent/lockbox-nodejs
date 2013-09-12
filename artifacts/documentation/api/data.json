@@ -1,0 +1,982 @@
+{
+    "project": {
+        "name": "Lockbox for Node.js",
+        "description": "Simple, strong encryption.",
+        "version": "0.2.0",
+        "url": "https://github.com/eloquent/lockbox-nodejs",
+        "logo": "http://eloquent-software.com/img/apple-touch-icon.png"
+    },
+    "files": {
+        "src/Exception/DecryptionFailedException.coffee": {
+            "name": "src/Exception/DecryptionFailedException.coffee",
+            "modules": {},
+            "classes": {
+                "lockbox.exception.DecryptionFailedException": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/Exception/InvalidPrivateKeyException.coffee": {
+            "name": "src/Exception/InvalidPrivateKeyException.coffee",
+            "modules": {},
+            "classes": {
+                "lockbox.exception.InvalidPrivateKeyException": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/Exception/InvalidPublicKeyException.coffee": {
+            "name": "src/Exception/InvalidPublicKeyException.coffee",
+            "modules": {},
+            "classes": {
+                "lockbox.exception.InvalidPublicKeyException": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/Exception/ReadException.coffee": {
+            "name": "src/Exception/ReadException.coffee",
+            "modules": {},
+            "classes": {
+                "lockbox.exception.ReadException": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/BoundCipher.coffee": {
+            "name": "src/BoundCipher.coffee",
+            "modules": {},
+            "classes": {
+                "lockbox.BoundCipher": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/BoundDecryptionCipher.coffee": {
+            "name": "src/BoundDecryptionCipher.coffee",
+            "modules": {},
+            "classes": {
+                "lockbox.BoundDecryptionCipher": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/BoundEncryptionCipher.coffee": {
+            "name": "src/BoundEncryptionCipher.coffee",
+            "modules": {},
+            "classes": {
+                "lockbox.BoundEncryptionCipher": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/Cipher.coffee": {
+            "name": "src/Cipher.coffee",
+            "modules": {},
+            "classes": {
+                "lockbox.Cipher": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/DecryptionCipher.coffee": {
+            "name": "src/DecryptionCipher.coffee",
+            "modules": {},
+            "classes": {
+                "lockbox.DecryptionCipher": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/EncryptionCipher.coffee": {
+            "name": "src/EncryptionCipher.coffee",
+            "modules": {},
+            "classes": {
+                "lockbox.EncryptionCipher": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/KeyFactory.coffee": {
+            "name": "src/KeyFactory.coffee",
+            "modules": {},
+            "classes": {
+                "lockbox.KeyFactory": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/main.coffee": {
+            "name": "src/main.coffee",
+            "modules": {},
+            "classes": {
+                "lockbox": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "lockbox.exception.DecryptionFailedException": {
+            "name": "lockbox.exception.DecryptionFailedException",
+            "shortname": "lockbox.exception.DecryptionFailedException",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/Exception/DecryptionFailedException.coffee",
+            "line": 19,
+            "description": "Decryption failed.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "cause",
+                    "description": "The cause, if available.",
+                    "type": "Mixed",
+                    "optional": true
+                }
+            ]
+        },
+        "lockbox.exception.InvalidPrivateKeyException": {
+            "name": "lockbox.exception.InvalidPrivateKeyException",
+            "shortname": "lockbox.exception.InvalidPrivateKeyException",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/Exception/InvalidPrivateKeyException.coffee",
+            "line": 19,
+            "description": "The supplied key is not a valid PEM formatted private key.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The invalid key.",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "cause",
+                    "description": "The cause, if available.",
+                    "type": "Mixed",
+                    "optional": true
+                }
+            ]
+        },
+        "lockbox.exception.InvalidPublicKeyException": {
+            "name": "lockbox.exception.InvalidPublicKeyException",
+            "shortname": "lockbox.exception.InvalidPublicKeyException",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/Exception/InvalidPublicKeyException.coffee",
+            "line": 19,
+            "description": "The supplied key is not a valid PEM formatted public key.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The invalid key.",
+                    "type": "Mixed"
+                },
+                {
+                    "name": "cause",
+                    "description": "The cause, if available.",
+                    "type": "Mixed",
+                    "optional": true
+                }
+            ]
+        },
+        "lockbox.exception.ReadException": {
+            "name": "lockbox.exception.ReadException",
+            "shortname": "lockbox.exception.ReadException",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/Exception/ReadException.coffee",
+            "line": 20,
+            "description": "Could not read from the specified path.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "path",
+                    "description": "The unreadable path.",
+                    "type": "String"
+                },
+                {
+                    "name": "cause",
+                    "description": "The cause, if available.",
+                    "type": "Mixed",
+                    "optional": true
+                }
+            ]
+        },
+        "lockbox.BoundCipher": {
+            "name": "lockbox.BoundCipher",
+            "shortname": "lockbox.BoundCipher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/BoundCipher.coffee",
+            "line": 21,
+            "description": "The standard Lockbox bi-directional cipher, with a bound key.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The key to encrypt and decrypt with.",
+                    "type": "ursa.Key"
+                },
+                {
+                    "name": "encryptionCipher",
+                    "description": "The encryption cipher to use.",
+                    "type": "lockbox.EncryptionCipher",
+                    "optional": true
+                },
+                {
+                    "name": "decryptionCipher",
+                    "description": "The decryption cipher to use.",
+                    "type": "lockbox.DecryptionCipher",
+                    "optional": true
+                },
+                {
+                    "name": "ursa",
+                    "description": "The Ursa module to use.",
+                    "type": "Ursa",
+                    "optional": true
+                }
+            ]
+        },
+        "lockbox.BoundDecryptionCipher": {
+            "name": "lockbox.BoundDecryptionCipher",
+            "shortname": "lockbox.BoundDecryptionCipher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/BoundDecryptionCipher.coffee",
+            "line": 20,
+            "description": "The standard Lockbox decryption cipher, with a bound key.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The key to decrypt with.",
+                    "type": "ursa.Key"
+                },
+                {
+                    "name": "decryptionCipher",
+                    "description": "The decryption cipher to use.",
+                    "type": "lockbox.DecryptionCipher",
+                    "optional": true
+                },
+                {
+                    "name": "ursa",
+                    "description": "The Ursa module to use.",
+                    "type": "Ursa",
+                    "optional": true
+                }
+            ]
+        },
+        "lockbox.BoundEncryptionCipher": {
+            "name": "lockbox.BoundEncryptionCipher",
+            "shortname": "lockbox.BoundEncryptionCipher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/BoundEncryptionCipher.coffee",
+            "line": 20,
+            "description": "The standard Lockbox encryption cipher, with a bound key.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The key to encrypt with.",
+                    "type": "ursa.Key"
+                },
+                {
+                    "name": "encryptionCipher",
+                    "description": "The encryption cipher to use.",
+                    "type": "lockbox.EncryptionCipher",
+                    "optional": true
+                },
+                {
+                    "name": "ursa",
+                    "description": "The Ursa module to use.",
+                    "type": "Ursa",
+                    "optional": true
+                }
+            ]
+        },
+        "lockbox.Cipher": {
+            "name": "lockbox.Cipher",
+            "shortname": "lockbox.Cipher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/Cipher.coffee",
+            "line": 20,
+            "description": "The standard Lockbox bi-directional cipher.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "encryptionCipher",
+                    "description": "The encryption cipher to use.",
+                    "type": "lockbox.EncryptionCipher",
+                    "optional": true
+                },
+                {
+                    "name": "decryptionCipher",
+                    "description": "The decryption cipher to use.",
+                    "type": "lockbox.DecryptionCipher",
+                    "optional": true
+                }
+            ]
+        },
+        "lockbox.DecryptionCipher": {
+            "name": "lockbox.DecryptionCipher",
+            "shortname": "lockbox.DecryptionCipher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/DecryptionCipher.coffee",
+            "line": 20,
+            "description": "The standard Lockbox decryption cipher.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "crypto",
+                    "description": "The cryptography module to use.",
+                    "type": "Crypto",
+                    "optional": true
+                },
+                {
+                    "name": "ursa",
+                    "description": "The Ursa module to use.",
+                    "type": "Ursa",
+                    "optional": true
+                }
+            ]
+        },
+        "lockbox.EncryptionCipher": {
+            "name": "lockbox.EncryptionCipher",
+            "shortname": "lockbox.EncryptionCipher",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/EncryptionCipher.coffee",
+            "line": 19,
+            "description": "The standard Lockbox encryption cipher.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "crypto",
+                    "description": "The cryptography module to use.",
+                    "type": "Crypto",
+                    "optional": true
+                },
+                {
+                    "name": "ursa",
+                    "description": "The Ursa module to use.",
+                    "type": "Ursa",
+                    "optional": true
+                }
+            ]
+        },
+        "lockbox.KeyFactory": {
+            "name": "lockbox.KeyFactory",
+            "shortname": "lockbox.KeyFactory",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/KeyFactory.coffee",
+            "line": 20,
+            "description": "Creates encryption keys.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "ursa",
+                    "description": "The Ursa module to use.",
+                    "type": "Ursa",
+                    "optional": true
+                },
+                {
+                    "name": "fs",
+                    "description": "The file system module to use.",
+                    "type": "Fs",
+                    "optional": true
+                }
+            ]
+        },
+        "lockbox": {
+            "name": "lockbox",
+            "shortname": "lockbox",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "src/main.coffee",
+            "line": 26,
+            "description": "The main Lockbox module.",
+            "static": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/BoundCipher.coffee",
+            "line": 45,
+            "description": "Encrypt a data packet.",
+            "itemtype": "method",
+            "name": "encrypt",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The data to encrypt.",
+                    "type": "String|Buffer"
+                }
+            ],
+            "return": {
+                "description": "The encrypted data.",
+                "type": "Buffer"
+            },
+            "class": "lockbox.BoundCipher"
+        },
+        {
+            "file": "src/BoundCipher.coffee",
+            "line": 57,
+            "description": "Decrypt a data packet.\n\nThrows:\n\n  - {{#crossLink \"lockbox.exception.DecryptionFailedException\"}}\n      lockbox.exception.DecryptionFailedException\n    {{/crossLink}}\n    If the decryption failed.",
+            "itemtype": "method",
+            "name": "decrypt",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The data to decrypt.",
+                    "type": "String|Buffer"
+                }
+            ],
+            "return": {
+                "description": "The decrypted data.",
+                "type": "Buffer"
+            },
+            "throws": [
+                "{lockbox.exception.DecryptionFailedException} If the decryption failed."
+            ],
+            "class": "lockbox.BoundCipher"
+        },
+        {
+            "file": "src/BoundDecryptionCipher.coffee",
+            "line": 41,
+            "description": "Decrypt a data packet.\n\nThrows:\n\n  - {{#crossLink \"lockbox.exception.DecryptionFailedException\"}}\n      lockbox.exception.DecryptionFailedException\n    {{/crossLink}}\n    If the decryption failed.",
+            "itemtype": "method",
+            "name": "decrypt",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The data to decrypt.",
+                    "type": "String|Buffer"
+                }
+            ],
+            "return": {
+                "description": "The decrypted data.",
+                "type": "Buffer"
+            },
+            "throws": [
+                "{lockbox.exception.DecryptionFailedException} If the decryption failed."
+            ],
+            "class": "lockbox.BoundDecryptionCipher"
+        },
+        {
+            "file": "src/BoundEncryptionCipher.coffee",
+            "line": 41,
+            "description": "Encrypt a data packet.",
+            "itemtype": "method",
+            "name": "encrypt",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "The data to encrypt.",
+                    "type": "String|Buffer"
+                }
+            ],
+            "return": {
+                "description": "The encrypted data.",
+                "type": "Buffer"
+            },
+            "class": "lockbox.BoundEncryptionCipher"
+        },
+        {
+            "file": "src/Cipher.coffee",
+            "line": 34,
+            "description": "Encrypt a data packet.",
+            "itemtype": "method",
+            "name": "encrypt",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The key to encrypt with.",
+                    "type": "ursa.Key"
+                },
+                {
+                    "name": "data",
+                    "description": "The data to encrypt.",
+                    "type": "String|Buffer"
+                }
+            ],
+            "return": {
+                "description": "The encrypted data.",
+                "type": "Buffer"
+            },
+            "class": "lockbox.Cipher"
+        },
+        {
+            "file": "src/Cipher.coffee",
+            "line": 47,
+            "description": "Decrypt a data packet.\n\nThrows:\n\n  - {{#crossLink \"lockbox.exception.DecryptionFailedException\"}}\n      lockbox.exception.DecryptionFailedException\n    {{/crossLink}}\n    If the decryption failed.",
+            "itemtype": "method",
+            "name": "decrypt",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The key to decrypt with.",
+                    "type": "ursa.Key"
+                },
+                {
+                    "name": "data",
+                    "description": "The data to decrypt.",
+                    "type": "String|Buffer"
+                }
+            ],
+            "return": {
+                "description": "The decrypted data.",
+                "type": "Buffer"
+            },
+            "throws": [
+                "{lockbox.exception.DecryptionFailedException} If the decryption failed."
+            ],
+            "class": "lockbox.Cipher"
+        },
+        {
+            "file": "src/DecryptionCipher.coffee",
+            "line": 31,
+            "description": "Decrypt a data packet.\n\nThrows:\n\n  - {{#crossLink \"lockbox.exception.DecryptionFailedException\"}}\n      lockbox.exception.DecryptionFailedException\n    {{/crossLink}}\n    If the decryption failed.",
+            "itemtype": "method",
+            "name": "decrypt",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The key to decrypt with.",
+                    "type": "ursa.Key"
+                },
+                {
+                    "name": "data",
+                    "description": "The data to decrypt.",
+                    "type": "String|Buffer"
+                }
+            ],
+            "return": {
+                "description": "The decrypted data.",
+                "type": "Buffer"
+            },
+            "throws": [
+                "{lockbox.exception.DecryptionFailedException} If the decryption failed."
+            ],
+            "class": "lockbox.DecryptionCipher"
+        },
+        {
+            "file": "src/EncryptionCipher.coffee",
+            "line": 30,
+            "description": "Encrypt a data packet.",
+            "itemtype": "method",
+            "name": "encrypt",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The key to encrypt with.",
+                    "type": "ursa.Key"
+                },
+                {
+                    "name": "data",
+                    "description": "The data to encrypt.",
+                    "type": "String|Buffer"
+                }
+            ],
+            "return": {
+                "description": "The encrypted data.",
+                "type": "Buffer"
+            },
+            "class": "lockbox.EncryptionCipher"
+        },
+        {
+            "file": "src/KeyFactory.coffee",
+            "line": 31,
+            "description": "Encrypt a data packet.",
+            "itemtype": "method",
+            "name": "generatePrivateKey",
+            "params": [
+                {
+                    "name": "size",
+                    "description": "The key size in bits.",
+                    "type": "Number",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "The generated key.",
+                "type": "ursa.PrivateKey"
+            },
+            "class": "lockbox.KeyFactory"
+        },
+        {
+            "file": "src/KeyFactory.coffee",
+            "line": 44,
+            "description": "Create a new private key.\n\nThrows:\n\n  - {{#crossLink \"lockbox.exception.InvalidPrivateKeyException\"}}\n      lockbox.exception.InvalidPrivateKeyException\n    {{/crossLink}}\n    If the key is invalid.",
+            "itemtype": "method",
+            "name": "createPrivateKey",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The PEM formatted private key.",
+                    "type": "String"
+                },
+                {
+                    "name": "password",
+                    "description": "The key password.",
+                    "type": "String",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "The private key.",
+                "type": "ursa.PrivateKey"
+            },
+            "throws": [
+                "{lockbox.exception.InvalidPrivateKeyException} If the key is invalid."
+            ],
+            "class": "lockbox.KeyFactory"
+        },
+        {
+            "file": "src/KeyFactory.coffee",
+            "line": 70,
+            "description": "Create a new public key.\n\nThrows:\n\n  - {{#crossLink \"lockbox.exception.InvalidPublicKeyException\"}}\n      lockbox.exception.InvalidPublicKeyException\n    {{/crossLink}}\n    If the key is invalid.",
+            "itemtype": "method",
+            "name": "createPublicKey",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The PEM formatted public key.",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The public key.",
+                "type": "ursa.PublicKey"
+            },
+            "throws": [
+                "{lockbox.exception.InvalidPublicKeyException} If the key is invalid."
+            ],
+            "class": "lockbox.KeyFactory"
+        },
+        {
+            "file": "src/KeyFactory.coffee",
+            "line": 94,
+            "description": "Creates a new private key from a file asynchronously.\n\nIf successful, the second argument to the callback will be an instance of\n{{#crossLink \"ursa.PrivateKey\"}}ursa.PrivateKey{{/crossLink}}. Otherwise,\nany errors will be returned as the first argument to the callback.\n\nPossible errors:\n\n  - {{#crossLink \"lockbox.exception.ReadException\"}}\n      lockbox.exception.ReadException\n    {{/crossLink}}\n    If the file cannot be read.\n  - {{#crossLink \"lockbox.exception.InvalidPrivateKeyException\"}}\n      lockbox.exception.InvalidPrivateKeyException\n    {{/crossLink}}\n    If the key is invalid.",
+            "itemtype": "method",
+            "name": "createPrivateKeyFromFile",
+            "async": 1,
+            "params": [
+                {
+                    "name": "path",
+                    "description": "The path to the PEM formatted private key.",
+                    "type": "String"
+                },
+                {
+                    "name": "password",
+                    "description": "The key password.",
+                    "type": "String",
+                    "optional": true
+                },
+                {
+                    "name": "callback",
+                    "description": "The callback function.",
+                    "type": "Function"
+                }
+            ],
+            "class": "lockbox.KeyFactory"
+        },
+        {
+            "file": "src/KeyFactory.coffee",
+            "line": 128,
+            "description": "Creates a new private key from a file synchronously.\n\nThrows:\n\n  - {{#crossLink \"lockbox.exception.ReadException\"}}\n      lockbox.exception.ReadException\n    {{/crossLink}}\n    If the file cannot be read.\n  - {{#crossLink \"lockbox.exception.InvalidPrivateKeyException\"}}\n      lockbox.exception.InvalidPrivateKeyException\n    {{/crossLink}}\n    If the key is invalid.",
+            "itemtype": "method",
+            "name": "createPrivateKeyFromFileSync",
+            "params": [
+                {
+                    "name": "path",
+                    "description": "The path to the PEM formatted private key.",
+                    "type": "String"
+                },
+                {
+                    "name": "password",
+                    "description": "The key password.",
+                    "type": "String",
+                    "optional": true
+                },
+                {
+                    "name": "callback",
+                    "description": "The callback function.",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "The private key.",
+                "type": "ursa.PrivateKey"
+            },
+            "throws": [
+                "{lockbox.exception.ReadException}              If the file cannot be read.",
+                "{lockbox.exception.InvalidPrivateKeyException} If the key is invalid."
+            ],
+            "class": "lockbox.KeyFactory"
+        },
+        {
+            "file": "src/KeyFactory.coffee",
+            "line": 156,
+            "description": "Creates a new public key from a file asynchronously.\n\nIf successful, the second argument to the callback will be an instance of\n{{#crossLink \"ursa.PublicKey\"}}ursa.PublicKey{{/crossLink}}. Otherwise, any\nerrors will be returned as the first argument to the callback.\n\nPossible errors:\n\n  - {{#crossLink \"lockbox.exception.ReadException\"}}\n      lockbox.exception.ReadException\n    {{/crossLink}}\n    If the file cannot be read.\n  - {{#crossLink \"lockbox.exception.InvalidPublicKeyException\"}}\n      lockbox.exception.InvalidPublicKeyException\n    {{/crossLink}}\n    If the key is invalid.",
+            "itemtype": "method",
+            "name": "createPublicKeyFromFile",
+            "async": 1,
+            "params": [
+                {
+                    "name": "path",
+                    "description": "The path to the PEM formatted public key.",
+                    "type": "String"
+                },
+                {
+                    "name": "password",
+                    "description": "The key password.",
+                    "type": "String",
+                    "optional": true
+                },
+                {
+                    "name": "callback",
+                    "description": "The callback function.",
+                    "type": "Function"
+                }
+            ],
+            "class": "lockbox.KeyFactory"
+        },
+        {
+            "file": "src/KeyFactory.coffee",
+            "line": 190,
+            "description": "Creates a new public key from a file synchronously.\n\nThrows:\n\n  - {{#crossLink \"lockbox.exception.ReadException\"}}\n      lockbox.exception.ReadException\n    {{/crossLink}}\n    If the file cannot be read.\n  - {{#crossLink \"lockbox.exception.InvalidPublicKeyException\"}}\n      lockbox.exception.InvalidPublicKeyException\n    {{/crossLink}}\n    If the key is invalid.",
+            "itemtype": "method",
+            "name": "createPublicKeyFromFileSync",
+            "params": [
+                {
+                    "name": "path",
+                    "description": "The path to the PEM formatted public key.",
+                    "type": "String"
+                },
+                {
+                    "name": "password",
+                    "description": "The key password.",
+                    "type": "String",
+                    "optional": true
+                },
+                {
+                    "name": "callback",
+                    "description": "The callback function.",
+                    "type": "Function"
+                }
+            ],
+            "return": {
+                "description": "The public key.",
+                "type": "ursa.PublicKey"
+            },
+            "throws": [
+                "{lockbox.exception.ReadException}             If the file cannot be read.",
+                "{lockbox.exception.InvalidPublicKeyException} If the key is invalid."
+            ],
+            "class": "lockbox.KeyFactory"
+        },
+        {
+            "file": "src/main.coffee",
+            "line": 34,
+            "description": "The bound bi-directional cipher class.",
+            "itemtype": "property",
+            "name": "BoundCipher",
+            "type": "Function",
+            "class": "lockbox"
+        },
+        {
+            "file": "src/main.coffee",
+            "line": 41,
+            "description": "The bound decryption cipher class.",
+            "itemtype": "property",
+            "name": "BoundDecryptionCipher",
+            "type": "Function",
+            "class": "lockbox"
+        },
+        {
+            "file": "src/main.coffee",
+            "line": 48,
+            "description": "The bound encryption cipher class.",
+            "itemtype": "property",
+            "name": "BoundEncryptionCipher",
+            "type": "Function",
+            "class": "lockbox"
+        },
+        {
+            "file": "src/main.coffee",
+            "line": 55,
+            "description": "The bi-directional cipher class.",
+            "itemtype": "property",
+            "name": "Cipher",
+            "type": "Function",
+            "class": "lockbox"
+        },
+        {
+            "file": "src/main.coffee",
+            "line": 62,
+            "description": "The decryption cipher class.",
+            "itemtype": "property",
+            "name": "DecryptionCipher",
+            "type": "Function",
+            "class": "lockbox"
+        },
+        {
+            "file": "src/main.coffee",
+            "line": 69,
+            "description": "The bound encryption cipher class.",
+            "itemtype": "property",
+            "name": "EncryptionCipher",
+            "type": "Function",
+            "class": "lockbox"
+        },
+        {
+            "file": "src/main.coffee",
+            "line": 76,
+            "description": "The key factory class.",
+            "itemtype": "property",
+            "name": "KeyFactory",
+            "type": "Function",
+            "class": "lockbox"
+        },
+        {
+            "file": "src/main.coffee",
+            "line": 85,
+            "description": "The decryption failed exception class.",
+            "itemtype": "property",
+            "name": "exception.DecryptionFailedException",
+            "type": "Function",
+            "class": "lockbox"
+        },
+        {
+            "file": "src/main.coffee",
+            "line": 92,
+            "description": "The invalid private key exception class.",
+            "itemtype": "property",
+            "name": "exception.InvalidPrivateKeyException",
+            "type": "Function",
+            "class": "lockbox"
+        },
+        {
+            "file": "src/main.coffee",
+            "line": 99,
+            "description": "The invalid public key exception class.",
+            "itemtype": "property",
+            "name": "exception.InvalidPublicKeyException",
+            "type": "Function",
+            "class": "lockbox"
+        },
+        {
+            "file": "src/main.coffee",
+            "line": 106,
+            "description": "The read exception class.",
+            "itemtype": "property",
+            "name": "exception.ReadException",
+            "type": "Function",
+            "class": "lockbox"
+        },
+        {
+            "file": "src/main.coffee",
+            "line": 113,
+            "description": "A key factory instance.",
+            "itemtype": "property",
+            "name": "keyFactory",
+            "type": "lockbox.KeyFactory",
+            "class": "lockbox"
+        },
+        {
+            "file": "src/main.coffee",
+            "line": 120,
+            "description": "Encrypt a data packet.",
+            "itemtype": "method",
+            "name": "encrypt",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The key to encrypt with.",
+                    "type": "ursa.Key"
+                },
+                {
+                    "name": "data",
+                    "description": "The data to encrypt.",
+                    "type": "String|Buffer"
+                }
+            ],
+            "return": {
+                "description": "The encrypted data.",
+                "type": "Buffer"
+            },
+            "class": "lockbox"
+        },
+        {
+            "file": "src/main.coffee",
+            "line": 133,
+            "description": "Decrypt a data packet.\n\nThrows:\n\n  - {{#crossLink \"lockbox.exception.DecryptionFailedException\"}}\n      lockbox.exception.DecryptionFailedException\n    {{/crossLink}}\n    If the decryption failed.",
+            "itemtype": "method",
+            "name": "decrypt",
+            "params": [
+                {
+                    "name": "key",
+                    "description": "The key to decrypt with.",
+                    "type": "ursa.Key"
+                },
+                {
+                    "name": "data",
+                    "description": "The data to decrypt.",
+                    "type": "String|Buffer"
+                }
+            ],
+            "return": {
+                "description": "The decrypted data.",
+                "type": "Buffer"
+            },
+            "throws": [
+                "{lockbox.exception.DecryptionFailedException} If the decryption failed."
+            ],
+            "class": "lockbox"
+        }
+    ],
+    "warnings": []
+}
