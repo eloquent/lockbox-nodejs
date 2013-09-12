@@ -113,7 +113,7 @@ module.exports =
   ###*
   # A key factory instance.
   #
-  # @property {KeyFactory} keyFactory
+  # @property {lockbox.KeyFactory} keyFactory
   ###
   keyFactory: keyFactory
 
@@ -133,12 +133,20 @@ module.exports =
   ###*
   # Decrypt a data packet.
   #
+  # Throws:
+  #
+  #   - {{#crossLink "lockbox.exception.DecryptionFailedException"}}
+  #       lockbox.exception.DecryptionFailedException
+  #     {{/crossLink}}
+  #     If the decryption failed.
+  #
   # @method decrypt
   #
   # @param {ursa.Key}      key  The key to decrypt with.
   # @param {String|Buffer} data The data to decrypt.
   #
   # @return {Buffer} The decrypted data.
+  # @throws {lockbox.exception.DecryptionFailedException} If the decryption failed.
   ###
   decrypt: (key, data) ->
     decryptionCipher.decrypt key, data
