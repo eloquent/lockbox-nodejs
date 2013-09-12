@@ -2,13 +2,14 @@
 
 *Simple, strong encryption.*
 
-[![Build Status]][Latest build]
-[![Test Coverage]][Test coverage report]
-[![Uses Semantic Versioning]][SemVer]
+[![Build status]][Latest build]
+[![Test coverage]][Test coverage report]
+[![Uses semantic versioning]][SemVer]
 
-## Installation
+## Installation and documentation
 
 * Available as [NPM] package [lockbox].
+* [API documentation] available.
 
 ## What is *Lockbox*?
 
@@ -143,109 +144,6 @@ for (var i = 0; i < encrypted.length; ++i) {
 }
 ```
 
-## Module exports
-
-### Instances
-
-- **lockbox.keyFactory** - An instance of [lockbox.KeyFactory].
-
-### Functions
-
-- **lockbox.encrypt(key, data)** - Encrypts data using a public key. Throws
-  `lockbox.exception.InvalidPublicKeyException` if an invalid key is supplied.
-- **lockbox.decrypt(key, data)** - Decrypts data using a private key. Throws
-  `lockbox.exception.DecryptionFailedException` on error.
-
-### Classes
-
-#### lockbox.KeyFactory
-
-A factory for creating private and public keys from various sources.
-
-- **createPrivateKey(key, [password])** - Creates a private key from a string.
-  Throws `lockbox.exception.InvalidPrivateKeyException` if an invalid key is
-  supplied.
-- **createPublicKey(key)** - Creates a public key from a string. Throws
-  `lockbox.exception.InvalidPublicKeyException` if an invalid key is supplied.
-- **createPrivateKeyFromFile(path, [password], callback)** - Creates a private
-  key from a file asynchronously. Any errors will be returned as the first
-  argument to the callback (see the synchronous version for possible errors).
-  Otherwise, the second argument to the callback will be the newly created key.
-- **createPrivateKeyFromFileSync(path, [password])** - Creates a private key
-  from a file synchronously. Throws `lockbox.exception.ReadException` if the
-  file cannot be read. Throws `lockbox.exception.InvalidPrivateKeyException` if
-  the file is an invalid key.
-- **createPublicKeyFromFile(path, callback)** - Creates a public key from a file
-  asynchronously. Any errors will be returned as the first argument to the
-  callback (see the synchronous version for possible errors). Otherwise, the
-  second argument to the callback will be the newly created key.
-- **createPublicKeyFromFileSync(path)** - Creates a public key from a file
-  synchronously. Throws `lockbox.exception.ReadException` if the file cannot be
-  read. Throws `lockbox.exception.InvalidPublicKeyException` if the file is an
-  invalid key.
-
-#### lockbox.EncryptionCipher
-
-A cipher for encrypting data.
-
-- **encrypt(key, data)** - Encrypts data using a public key. Throws
-  `lockbox.exception.InvalidPublicKeyException` if an invalid key is supplied.
-
-#### lockbox.DecryptionCipher
-
-A cipher for decrypting data.
-
-- **decrypt(key, data)** - Decrypts data using a private key. Throws
-  `lockbox.exception.DecryptionFailedException` on error.
-
-#### lockbox.Cipher
-
-A cipher for encrypting *and* decrypting data.
-
-- **encrypt(key, data)** - Encrypts data using a public key. Throws
-  `lockbox.exception.InvalidPublicKeyException` if an invalid key is supplied.
-- **decrypt(key, data)** - Decrypts data using a private key. Throws
-  `lockbox.exception.DecryptionFailedException` on error.
-
-#### lockbox.BoundEncryptionCipher
-
-A cipher for encrypting data, with a bound key.
-
-- **new lockbox.BoundEncryptionCipher(key)** - Constructs a new bound encryption
-  cipher. Throws `lockbox.exception.InvalidPublicKeyException` if an invalid key
-  is supplied.
-- **encrypt(data)** - Encrypts data using the bound public key.
-
-#### lockbox.BoundDecryptionCipher
-
-A cipher for decrypting data, with a bound key.
-
-- **new lockbox.BoundDecryptionCipher(key)** - Constructs a new bound decryption
-  cipher. Throws `lockbox.exception.InvalidPrivateKeyException` if an invalid
-  key is supplied.
-- **decrypt(data)** - Decrypts data using the bound private key. Throws
-  `lockbox.exception.DecryptionFailedException` on error.
-
-#### lockbox.BoundCipher
-
-A cipher for encrypting *and* decrypting data, with a bound key.
-
-- **new lockbox.BoundCipher(key)** - Constructs a new bound cipher. Throws
-  `lockbox.exception.InvalidPrivateKeyException` if an invalid key is supplied.
-- **encrypt(data)** - Encrypts data using the public key derived from the bound
-  private key.
-- **decrypt(data)** - Decrypts data using the bound private key. Throws
-  `lockbox.exception.DecryptionFailedException` on error.
-
-### Exceptions
-
-- **lockbox.exception.DecryptionFailedException** - Decryption failed.
-- **lockbox.exception.InvalidPrivateKeyException** - The supplied key is not a
-  valid PEM formatted private key.
-- **lockbox.exception.InvalidPublicKeyException** - The supplied key is not a
-  valid PEM formatted public key.
-- **lockbox.exception.ReadException** - Unable to read from the specified path.
-
 <!-- References -->
 
 [Lockbox website]: http://lqnt.co/lockbox
@@ -254,11 +152,12 @@ A cipher for encrypting *and* decrypting data, with a bound key.
 [PEM]: http://en.wikipedia.org/wiki/Privacy-enhanced_Electronic_Mail
 [RSA]: http://en.wikipedia.org/wiki/RSA_(algorithm)
 
-[Build Status]: https://api.travis-ci.org/eloquent/lockbox-nodejs.png?branch=master
+[API documentation]: http://lqnt.co/lockbox-nodejs/artifacts/documentation/api/
+[Build status]: https://api.travis-ci.org/eloquent/lockbox-nodejs.png?branch=master
 [NPM]: https://npmjs.org/
 [lockbox]: https://npmjs.org/package/lockbox
 [Latest build]: https://travis-ci.org/eloquent/lockbox-nodejs
 [SemVer]: http://semver.org/
 [Test coverage report]: https://coveralls.io/r/eloquent/lockbox-nodejs
-[Test Coverage]: https://coveralls.io/repos/eloquent/lockbox-nodejs/badge.png?branch=master
-[Uses Semantic Versioning]: http://b.repl.ca/v1/semver-yes-brightgreen.png
+[Test coverage]: https://coveralls.io/repos/eloquent/lockbox-nodejs/badge.png?branch=master
+[Uses semantic versioning]: http://b.repl.ca/v1/semver-yes-brightgreen.png
