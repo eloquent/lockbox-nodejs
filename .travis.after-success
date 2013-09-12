@@ -1,0 +1,8 @@
+#/bin/sh
+
+# publish API documentation
+if [ $TRAVIS_BRANCH == $LOCKBOX_PUBLISH_BRANCH ] && [ "true" == $TRAVIS_SECURE_ENV_VARS ]
+then
+    make api-documentation
+    ./woodhouse publish --auth-token $WOODHOUSE_TOKEN $TRAVIS_REPO_SLUG artifacts/documentation/api:artifacts/documentation/api
+fi

@@ -4,7 +4,7 @@
     "version": "0.2.0",
     "homepage": "https://github.com/eloquent/lockbox-nodejs",
     "author": "Erin Millard",
-    "keywords": ["encryption", "openssl", "aes", "two", "way", "security", "strong", "simple"],
+    "keywords": ["encryption", "openssl", "rsa", "aes", "two", "way", "security", "strong", "simple", "asymmetric", "key"],
     "repository": {
         "type": "git",
         "url": "https://github.com/eloquent/lockbox-nodejs.git"
@@ -14,22 +14,18 @@
         "lib": "./lib"
     },
     "main": "./lib/main",
-    "scripts": {
-        "blanket": {
-            "pattern": "//lockbox-nodejs\\/lib/"
-        }
-    },
     "dependencies": {
-        "ursa": "~0.8"
+        "ursa": "~0.8.0"
     },
     "devDependencies": {
-        "blanket": "~1.1",
         "chai": "~1.7",
         "coffee-script": "~1.6",
         "coveralls": "~2.0",
+        "istanbul": "~0.1.0",
         "mocha": "~1.12",
-        "mocha-lcov-reporter": "~0.0",
-        "sinon": "~1.7"
+        "mocha-lcov-reporter": "~0.0.0",
+        "sinon": "~1.7",
+        "yuidocjs": "~0.3.0"
     },
     "licenses": [
         {

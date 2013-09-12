@@ -19,12 +19,12 @@ information, see the [Lockbox website].
 
 ## Usage
 
-### Generating keys
+### Generating keys via OpenSSL
 
 *Lockbox* uses [RSA] keys in [PEM] format. This is a standard format understood
-by [OpenSSL]. Generating of keys is handled by the `openssl` command line tool
-(not part of *Lockbox*). Generating a 2048-bit private key can be achieved with
-this command:
+by [OpenSSL]. Generating of keys is normally handled by the `openssl` command
+line tool (although *Lockbox* can also generate keys programmatically).
+Generating a 2048-bit private key can be achieved with this command:
 
     openssl genrsa -out private.pem 2048
 
@@ -44,6 +44,14 @@ need to create matching public key files; but if for some reason a public key
 file is required, this command will create one:
 
     openssl rsa -pubout -in private.pem -out public.pem
+
+### Generating keys programmatically
+
+```js
+var lockbox = require('lockbox');
+
+var key = lockbox.keyFactory.generatePrivateKey();
+```
 
 ### Encrypting data
 

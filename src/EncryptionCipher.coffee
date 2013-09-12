@@ -9,12 +9,34 @@ file that was distributed with this source code.
 
 InvalidPublicKeyException = require './Exception/InvalidPublicKeyException'
 
+###*
+# The standard Lockbox encryption cipher.
+#
+# @class lockbox.EncryptionCipher
+###
 module.exports = class EncryptionCipher
 
+  ###*
+  # @class lockbox.EncryptionCipher
+  # @constructor
+  #
+  # @param {crypto} [crypto] The cryptography module to use.
+  # @param {ursa}   [ursa]   The Ursa module to use.
+  ###
   constructor: (crypto = (require 'crypto'), ursa = (require 'ursa')) ->
     @_crypto = crypto
     @_ursa = ursa
 
+  ###*
+  # Encrypt a data packet.
+  #
+  # @method encrypt
+  #
+  # @param {ursa.Key}      key  The key to encrypt with.
+  # @param {String|Buffer} data The data to encrypt.
+  #
+  # @return {Buffer} The encrypted data.
+  ###
   encrypt: (key, data) ->
     try
       @_ursa.assertKey key
@@ -32,7 +54,7 @@ module.exports = class EncryptionCipher
     hash.update data
     digest = hash.digest()
 
-    encryptedData = @_encryptAes generatedKey, iv, Buffer.concat [digest, data]
+    encryptedData = @_encryptAes generatedKey, iv, Buffer.concat [data, digest]
     @_base64UriEncode Buffer.concat [encryptedKeyAndIv, encryptedData]
 
   _generateKey: ->

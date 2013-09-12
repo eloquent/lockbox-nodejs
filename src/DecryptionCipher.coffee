@@ -10,12 +10,42 @@ file that was distributed with this source code.
 DecryptionFailedException = require './Exception/DecryptionFailedException'
 InvalidPrivateKeyException = require './Exception/InvalidPrivateKeyException'
 
+###*
+# The standard Lockbox decryption cipher.
+#
+# @class lockbox.DecryptionCipher
+###
 module.exports = class DecryptionCipher
 
+  ###*
+  # @class lockbox.DecryptionCipher
+  # @constructor
+  #
+  # @param {crypto} [crypto] The cryptography module to use.
+  # @param {ursa}   [ursa]   The Ursa module to use.
+  ###
   constructor: (crypto = (require 'crypto'), ursa = (require 'ursa')) ->
     @_crypto = crypto
     @_ursa = ursa
 
+  ###*
+  # Decrypt a data packet.
+  #
+  # Throws:
+  #
+  #   - {{#crossLink "lockbox.exception.DecryptionFailedException"}}
+  #       lockbox.exception.DecryptionFailedException
+  #     {{/crossLink}}
+  #     If the decryption failed.
+  #
+  # @method decrypt
+  #
+  # @param {ursa.Key}      key  The key to decrypt with.
+  # @param {String|Buffer} data The data to decrypt.
+  #
+  # @return {Buffer} The decrypted data.
+  # @throws {lockbox.exception.DecryptionFailedException} If the decryption failed.
+  ###
   decrypt: (key, data) ->
     try
       @_ursa.assertPrivateKey key
@@ -43,8 +73,8 @@ module.exports = class DecryptionCipher
     catch error
       throw new DecryptionFailedException error
 
-    verificationDigest = data.slice(0, 20).toString 'binary'
-    data = data.slice 20
+    verificationDigest = data.slice(-20).toString 'binary'
+    data = data.slice 0, -20
 
     hash = @_crypto.createHash 'sha1'
     hash.update data

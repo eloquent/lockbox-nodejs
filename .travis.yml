@@ -1,4 +1,10 @@
 language: node_js
 node_js:
     - '0.10'
+env:
+  global:
+    - LOCKBOX_PUBLISH_BRANCH=master
+    - secure: UZ8dKL0JeMF8HQmbCMxN8isynKrn0yAFavxzlZlbKeAjU6b+Bb6MaLaYzmrcZr/DdWSpzigIBfMR8gFU7oHRi5y3HXYUK6gxVN2pT2ECRMB6OoKcyq58s4uebOUWVW5kpSmyK6Rfl2YbFeCXmvZrVYVvKCDQHpbv41Vkm2qOALQ=
+before_install: ./.travis.before-install
 script: make travis
+after_success: ./.travis.after-success

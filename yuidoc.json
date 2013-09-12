@@ -1,0 +1,10 @@
+{
+    "name": "Lockbox for Node.js",
+    "description": "Simple, strong encryption.",
+    "version": "0.2.0",
+    "url": "https://github.com/eloquent/lockbox-nodejs",
+    "logo": "http://eloquent-software.com/img/apple-touch-icon.png",
+    "options": {
+        "linkNatives": true
+    }
+}
